@@ -2,10 +2,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Main {
-    private static final String regex = "\\w+[a-zA-Z_0-9]";
+    private static final String regex = "\\w";
     private static final Pattern pattern = Pattern.compile(regex);
     public static void main(String[] args) {
-        check("kakkak", "kakkak", "kakkak");
+        check("!KaKA1&", "!KaKA1&", "!KaKA1&");
     }
     private static void check(String login, String password, String confirmPassword) {
         try {
@@ -32,7 +32,7 @@ public class Main {
     private static void checkPassword(String password) throws WrongPasswordException {
         Matcher matcher = pattern.matcher(password);
 
-        if (password == null || password.isEmpty() || password.length() >= 20) {
+        if (password == null || password.isBlank() || password.length() >= 20) {
             throw new WrongPasswordException("Длина пороля не соответствует требованиям");
         } else if (!matcher.matches()) {
             throw new WrongPasswordException("Символы пороля не соответствуют требованиям");

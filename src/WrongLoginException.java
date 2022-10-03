@@ -6,11 +6,4 @@ class WrongLoginException extends Exception{
         super(message);
     }
 
-    public WrongLoginException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public WrongLoginException(Throwable cause) {
-        super(cause);
-    }
 }
