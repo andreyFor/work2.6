@@ -5,7 +5,7 @@ public class Main {
     private static final String regex = "\\w+[a-zA-Z_0-9]";
     private static final Pattern pattern = Pattern.compile(regex);
     public static void main(String[] args) {
-        check("safsfaf", "fskfjsf", "sfanksf");
+        check("kakkak", "kakkak", "kakkak");
     }
     private static void check(String login, String password, String confirmPassword) {
         try {
