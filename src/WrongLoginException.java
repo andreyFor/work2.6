@@ -6,4 +6,8 @@ class WrongLoginException extends Exception{
         super(message);
     }
 
+
+    public WrongLoginException() {
+
+    }
 }
