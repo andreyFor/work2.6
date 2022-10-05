@@ -1,46 +1,38 @@
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
-    private static final String regex = "\\w";
-    private static final Pattern pattern = Pattern.compile(regex);
+
     public static void main(String[] args) {
-        check("!KaKA1&", "!KaKA1&", "!KaKA1&");
+        String login = "hfhhf_dkdk0";
+        String password = "_Fsacascasc1";
+        String confirmPassword = "12dqscx_!x";
+        logIN(login, password, confirmPassword);
     }
-    private static void check(String login, String password, String confirmPassword) {
-        try {
-            checkLogin(login);
-            checkPassword(password);
-            checkConfirmPassword(password, confirmPassword);
-        } catch (WrongLoginException e) {
-            System.err.println(e.getMessage());
-        } catch (WrongPasswordException e) {
-            System.err.println(e.getMessage());
-        } finally {
-            System.out.println("Проверка вводных данных завершена");
-        }
-    }
-    private static void checkLogin(String login) throws WrongLoginException {
-        Matcher matcher = pattern.matcher(login);
 
-        if (login == null || login.isEmpty() || login.length() >= 20) {
-            throw new WrongLoginException("Длина логина не соответствует требованиям") ;
-        } else if (!matcher.matches()) {
-            throw new WrongLoginException("Символы логина не соответствуют требованиям");
+    public static boolean logIN(String login, String password, String confirmPassword) {
+        boolean loginSymbol = login.matches("^[a-z0-9_]+$");
+        boolean passwordSymbol = password.matches("^[a-zA-Z0-9_]+$");
+        boolean passwordComparison = confirmPassword.equals(password);
+        if ((!loginSymbol) || (login.length() > 20)) {
+            try {
+                throw new WrongLoginException();
+            } catch (WrongLoginException e) {
+                System.out.println("Login может содержать в себе только латинские буквы нижнего регистра,цифры,знак подчеркивания и иметь не более 20 символов");
+            }
+        } else if ((!passwordSymbol) || (password.length() >= 20)) {
+            try {
+                throw new WrongLoginException();
+            } catch (WrongLoginException e) {
+                System.out.println("Password может содержать в себе только латинские буквы, цифры, знак подчеркивания и иметь меньше 20 символов");
+            }
+        } else if (!passwordComparison) {
+            try {
+                throw new WrongLoginException();
+            } catch (WrongLoginException e) {
+                System.out.println("Password не может отличаться от confirmPassword");
+            }
         }
+        System.out.println("Пользователь зарегистрирован");
+        return true;
     }
-    private static void checkPassword(String password) throws WrongPasswordException {
-        Matcher matcher = pattern.matcher(password);
 
-        if (password == null || password.isBlank() || password.length() >= 20) {
-            throw new WrongPasswordException("Длина пороля не соответствует требованиям");
-        } else if (!matcher.matches()) {
-            throw new WrongPasswordException("Символы пороля не соответствуют требованиям");
-        }
-    }
-    private static void checkConfirmPassword(String password, String confirmPassword) throws WrongPasswordException{
-        if (!password.equals(confirmPassword)) {
-            throw new WrongPasswordException("Пороль не совпадает");
-        }
-    }
 }
